@@ -1,0 +1,84 @@
+version: '3'
+
+services:
+  django:
+    build:
+      context: .
+      dockerfile: ./compose/local/django/Dockerfile
+    image: Yearbook_social_django
+    container_name: Yearbook-social-django
+    command: /start
+    volumes:
+      - .:/app
+    expose:
+      - 8000
+    env_file:
+      - ./.env/.local
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+      - cache
+    networks:
+      - social
+      - Yearbook_message-queue
+  db:
+    image: postgres
+    container_name: postgres_db_social
+    env_file:
+      - ./.env/.local
+    expose:
+      - 5432
+    networks:
+      - social
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+  cache:
+    image: redis:6.2
+    expose:
+      - 6379
+    command: redis-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+    volumes:
+      - .:/cache
+    networks:
+      - social
+  celery_worker:
+    build:
+      context: .
+      dockerfile: ./compose/local/django/Dockerfile
+    image: social_celery_worker
+    command: /start-celeryworker
+    volumes:
+      - .:/app
+    env_file:
+      - ./.env/.local
+    networks:
+      - social
+      - Yearbook_message-queue
+    depends_on:
+      - db
+      - cache
+  celery_beat:
+    build:
+      context: .
+      dockerfile: ./compose/local/django/Dockerfile
+    image: social_celery_beat
+    command: /start-celerybeat
+    volumes:
+      - .:/app
+    env_file:
+      - ./.env/.local
+    networks:
+      - social
+      - Yearbook_message-queue
+    depends_on:
+      - cache
+      - db
+networks:
+  social:
+    driver: bridge
+  Yearbook_message-queue:
+    external: true
+volumes:
+  postgres_data:
+  cache:

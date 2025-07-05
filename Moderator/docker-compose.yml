@@ -1,0 +1,84 @@
+version: '3'
+
+services:
+  django:
+    build:
+      context: .
+      dockerfile: ./compose/local/django/Dockerfile
+    image: Yearbook_moderator_django
+    container_name: Yearbook_moderator_django
+    command: /start
+    volumes:
+      - .:/app
+    expose:
+      - 8000
+    env_file:
+      - ./.env/.local
+    ports:
+      - 8001:8000
+    depends_on:
+      - db
+      - cache
+    networks:
+      - moderator
+      - Yearbook_message-queue
+  db:
+    image: postgres
+    container_name: postgres_db_moderator
+    env_file:
+      - ./.env/.local
+    expose:
+      - 5432
+    networks:
+      - moderator
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+  cache:
+    image: redis:6.2
+    expose:
+      - 6379
+    command: redis-server --save 20 1 --loglevel warning --requirepass <password>
+    volumes:
+      - .:/cache
+    networks:
+      - moderator
+  celery_worker:
+    build:
+      context: .
+      dockerfile: ./compose/local/django/Dockerfile
+    image: moderator_celery_worker
+    command: /start-celeryworker
+    volumes:
+      - .:/app
+    env_file:
+      - ./.env/.local
+    networks:
+      - moderator
+      - Yearbook_message-queue
+    depends_on:
+      - db
+      - cache
+  celery_beat:
+    build:
+      context: .
+      dockerfile: ./compose/local/django/Dockerfile
+    image: moderator_celery_beat
+    command: /start-celerybeat
+    volumes:
+      - .:/app
+    env_file:
+      - ./.env/.local
+    networks:
+      - moderator
+      - Yearbook_message-queue
+    depends_on:
+      - cache
+      - db
+networks:
+  moderator:
+    driver: bridge
+  Yearbook_message-queue:
+    external: true
+volumes:
+  postgres_data:
+  cache:

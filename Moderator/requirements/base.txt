@@ -1,0 +1,45 @@
+pytz==2021.3  # https://github.com/stub42/pytz
+python-slugify==5.0.2  # https://github.com/un33k/python-slugify
+Pillow==9.0.0  # https://github.com/python-pillow/Pillow
+argon2-cffi==21.3.0  # https://github.com/hynek/argon2_cffi
+redis==4.1.2  # https://github.com/redis/redis-py
+#hiredis==2.0.0  # https://github.com/redis/hiredis-py
+
+# Django
+# ------------------------------------------------------------------------------
+django==3.2.11  # pyup: < 4.0  # https://www.djangoproject.com/
+django-environ==0.8.1  # https://github.com/joke2k/django-environ
+django-model-utils==4.2.0  # https://github.com/jazzband/django-model-utils
+django-allauth==0.47.0  # https://github.com/pennersr/django-allauth
+django-crispy-forms==1.14.0  # https://github.com/django-crispy-forms/django-crispy-forms
+crispy-bootstrap5==0.6  # https://github.com/django-crispy-forms/crispy-bootstrap5
+django-redis==5.2.0  # https://github.com/jazzband/django-redis
+djangorestframework==3.13.1
+django_countries==7.2.1
+markdown==3.3.6
+django-storages==1.12.3
+boto3==1.21.3
+botocore==1.24.13
+drf-yasg==1.20.0
+django-rest-swagger==2.2.0
+dj-rest-auth==2.2.3
+
+#celery
+celery==5.2.6
+django-celery-beat==2.2.1
+django-celery-results==2.3.1
+
+#pubnub
+pubnub==6.3.2
+
+#rabbitmq
+pika==1.2.1
+
+#sendgrid
+sendgrid-django==4.2.0
+
+cryptography==36.0.1
+rollbar==0.16.2
+woocommerce==3.0.0
+apscheduler==3.9.1
+pyotp==2.6.0
