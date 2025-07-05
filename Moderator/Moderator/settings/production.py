@@ -99,12 +99,12 @@ AWS_S3_REGION_NAME = env("DJANGO_AWS_S3_REGION_NAME", default=None)
 # aws_s3_domain = AWS_S3_CUSTOM_DOMAIN or f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
 # # STATIC
 # # ------------------------
-STATICFILES_STORAGE = "Yearbook_app.utils.storages.StaticRootS3Boto3Storage"
+STATICFILES_STORAGE = "YearbookGaming_app.utils.storages.StaticRootS3Boto3Storage"
 # COLLECTFAST_STRATEGY = "collectfast.strategies.boto3.Boto3Strategy"
 STATIC_URL = env("DJANGO_AWS_S3_CUSTOM_DOMAIN")
 # # MEDIA
 # # ------------------------------------------------------------------------------
-DEFAULT_FILE_STORAGE = "Yearbook_app.utils.storages.MediaRootS3Boto3Storage"
+DEFAULT_FILE_STORAGE = "YearbookGaming_app.utils.storages.MediaRootS3Boto3Storage"
 # #MEDIA_URL = f"https://{aws_s3_domain}/media/"
 # AWS_PRELOAD_METADATA = True
 # AWS_S3_FILE_OVERWRITE = False
@@ -116,14 +116,14 @@ DEFAULT_FILE_STORAGE = "Yearbook_app.utils.storages.MediaRootS3Boto3Storage"
 # https://docs.djangoproject.com/en/dev/ref/settings/#default-from-email
 # DEFAULT_FROM_EMAIL = env(
 #     "DJANGO_DEFAULT_FROM_EMAIL",
-#     default="Yearbook_app <noreply@Yearbooktoys.com>",
+#     default="YearbookGaming_app <noreply@YearbookGamingtoys.com>",
 # )
 # # https://docs.djangoproject.com/en/dev/ref/settings/#server-email
 # SERVER_EMAIL = env("DJANGO_SERVER_EMAIL", default=DEFAULT_FROM_EMAIL)
 # # https://docs.djangoproject.com/en/dev/ref/settings/#email-subject-prefix
 # EMAIL_SUBJECT_PREFIX = env(
 #     "DJANGO_EMAIL_SUBJECT_PREFIX",
-#     default="[Yearbook_app]",
+#     default="[YearbookGaming_app]",
 # )
 
 EMAIL_BACKEND = env(
@@ -147,7 +147,7 @@ PAPERTRAIL_LOGGER_URL = env("PAPERTRAIL_LOGGER_URL", default="logs6.papertrailap
 PAPERTRAIL_PORT_NUMBER = env("PAPERTRAIL_PORT_NUMBER", default=17017)
 LOGGING["formatters"] = {
     "simple": {
-        "format": "%(asctime)s Yearbookwebtempprod-env_ YearbookMODERATOR: %(message)s",
+        "format": "%(asctime)s YearbookGamingwebtempprod-env_ YearbookGamingMODERATOR: %(message)s",
         "datefmt": "%Y-%m-%dT%H:%M:%S",
     },
 }

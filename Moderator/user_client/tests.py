@@ -38,8 +38,8 @@ class UserClientViewsTest(URLPatternsTestCase):
         self.assertEqual(login_resp.status_code, HTTP_200_OK)
         self.assertEqual(login_resp.data["status"], "success")
         # Validate if the object in the response already exists
-        id = login_resp.data["data"].get("Yearbook_id")
-        self.assertTrue(YearbookUser.objects.filter(Yearbook_id=id).exists())
+        id = login_resp.data["data"].get("YearbookGaming_id")
+        self.assertTrue(YearbookGamingUser.objects.filter(YearbookGaming_id=id).exists())
         return login_resp
     
     def test__fetch_tickets(self):

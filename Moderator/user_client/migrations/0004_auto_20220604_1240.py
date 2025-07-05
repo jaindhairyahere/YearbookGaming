@@ -8,7 +8,7 @@ from django.utils.timezone import utc
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('user_client', '0003_alter_Yearbookmoderator_last_logout'),
+        ('user_client', '0003_alter_YearbookGamingmoderator_last_logout'),
     ]
 
     operations = [
@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
             field=models.PositiveSmallIntegerField(choices=[(1, 'Approved'), (2, 'Rejected'), (3, 'Under review'), (4, 'Marked Spam'), (5, 'Escalated')], default=3, help_text='Status of any object in the database in the context of moderation'),
         ),
         migrations.AlterField(
-            model_name='Yearbookmoderator',
+            model_name='YearbookGamingmoderator',
             name='last_logout',
             field=models.DateTimeField(default=datetime.datetime(2022, 6, 4, 12, 40, 0, 786650, tzinfo=utc), help_text='Last logout date-time of the moderator'),
         ),

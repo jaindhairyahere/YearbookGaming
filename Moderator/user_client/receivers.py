@@ -13,7 +13,7 @@ def event_logout_reciever(signal, sender, moderator_id, *args, **kwargs):
     Args:
         signal (Signal): the signal which has called this reciever
         sender (Any): the sender of the signal
-        moderator_id (int): the id (pk) of the YearbookModerator instance
+        moderator_id (int): the id (pk) of the YearbookGamingModerator instance
     """
     logout_event.delay(moderator_id, *args, **kwargs)
     
@@ -27,7 +27,7 @@ def event_activity_reciever(signal, sender, moderator_id, *args, **kwargs):
     Args:
         signal (Signal): the signal which has called this reciever
         sender (Any): the sender of the signal
-        moderator_id (int): the id (pk) of the YearbookModerator instance
+        moderator_id (int): the id (pk) of the YearbookGamingModerator instance
     """
     moderator_activity.delay(moderator_id, *args, **kwargs)
     

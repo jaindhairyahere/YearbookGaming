@@ -5,8 +5,8 @@ services:
     build:
       context: .
       dockerfile: ./compose/local/django/Dockerfile
-    image: Yearbook_social_django
-    container_name: Yearbook-social-django
+    image: YearbookGaming_social_django
+    container_name: YearbookGaming-social-django
     command: /start
     volumes:
       - .:/app
@@ -21,7 +21,7 @@ services:
       - cache
     networks:
       - social
-      - Yearbook_message-queue
+      - YearbookGaming_message-queue
   db:
     image: postgres
     container_name: postgres_db_social
@@ -54,7 +54,7 @@ services:
       - ./.env/.local
     networks:
       - social
-      - Yearbook_message-queue
+      - YearbookGaming_message-queue
     depends_on:
       - db
       - cache
@@ -70,14 +70,14 @@ services:
       - ./.env/.local
     networks:
       - social
-      - Yearbook_message-queue
+      - YearbookGaming_message-queue
     depends_on:
       - cache
       - db
 networks:
   social:
     driver: bridge
-  Yearbook_message-queue:
+  YearbookGaming_message-queue:
     external: true
 volumes:
   postgres_data:

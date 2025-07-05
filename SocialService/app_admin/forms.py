@@ -5,14 +5,14 @@ from django.core.exceptions import ValidationError
 class TokenAuthenticationForm(forms.Form):
     """
     Base class for authenticating users. Extend this to get a form that accepts
-    Yearbook_id/token logins.
+    YearbookGaming_id/token logins.
     """
-    Yearbook_id = forms.IntegerField(widget=forms.TextInput(attrs={'autofocus': True}), required=False)
+    YearbookGaming_id = forms.IntegerField(widget=forms.TextInput(attrs={'autofocus': True}), required=False)
     token = forms.CharField(max_length=100)
 
     error_messages = {
         'invalid_login': 
-            "Please enter a correct %(Yearbook_id)s and token. Note that both "
+            "Please enter a correct %(YearbookGaming_id)s and token. Note that both "
             "fields may be case-sensitive."
         ,
         'inactive': "This account is inactive.",
@@ -36,11 +36,11 @@ class TokenAuthenticationForm(forms.Form):
 
         Returns: None
         """
-        Yearbook_id = self.cleaned_data.get('Yearbook_id', None)
+        YearbookGaming_id = self.cleaned_data.get('YearbookGaming_id', None)
         token = self.cleaned_data.get('token', None)
 
         if token is not None:
-            self.user_cache = authenticate(self.request, token=token, Yearbook_id = Yearbook_id)
+            self.user_cache = authenticate(self.request, token=token, YearbookGaming_id = YearbookGaming_id)
             if self.user_cache is None:
                 raise self.get_invalid_login_error()
             else:

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from user_client.models import ModerationTicket, YearbookModerator, Content, UploadObject, TicketBoard
+from user_client.models import ModerationTicket, YearbookGamingModerator, Content, UploadObject, TicketBoard
 from utils.serializers import PermissionModelSerializer, \
     SerializerMethodField, ExcludeFieldModelSerializer
 from utils.functions import create_presigned_url_download, create_presigned_url_upload
@@ -43,8 +43,8 @@ class TicketBoardSerializer(PermissionModelSerializer):
         model = TicketBoard
         fields = ("__all__")
 
-class YearbookModeratorSerializer(PermissionModelSerializer, ExcludeFieldModelSerializer):
-    """Model Serializer for the django model `YearbookUser`."""
+class YearbookGamingModeratorSerializer(PermissionModelSerializer, ExcludeFieldModelSerializer):
+    """Model Serializer for the django model `YearbookGamingUser`."""
     tickets = SerializerMethodField()
     last_logout = serializers.ReadOnlyField()
     board = SerializerMethodField()
@@ -60,7 +60,7 @@ class YearbookModeratorSerializer(PermissionModelSerializer, ExcludeFieldModelSe
         return serializer.data
         
     class Meta:
-        model = YearbookModerator
+        model = YearbookGamingModerator
         fields = ("user", "is_mod_available", "last_login", "last_logout", "board", "tickets", )
         depth = 3
 

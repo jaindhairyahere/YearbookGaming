@@ -5,8 +5,8 @@ services:
     build:
       context: .
       dockerfile: ./compose/local/django/Dockerfile
-    image: Yearbook_moderator_django
-    container_name: Yearbook_moderator_django
+    image: YearbookGaming_moderator_django
+    container_name: YearbookGaming_moderator_django
     command: /start
     volumes:
       - .:/app
@@ -21,7 +21,7 @@ services:
       - cache
     networks:
       - moderator
-      - Yearbook_message-queue
+      - YearbookGaming_message-queue
   db:
     image: postgres
     container_name: postgres_db_moderator
@@ -54,7 +54,7 @@ services:
       - ./.env/.local
     networks:
       - moderator
-      - Yearbook_message-queue
+      - YearbookGaming_message-queue
     depends_on:
       - db
       - cache
@@ -70,14 +70,14 @@ services:
       - ./.env/.local
     networks:
       - moderator
-      - Yearbook_message-queue
+      - YearbookGaming_message-queue
     depends_on:
       - cache
       - db
 networks:
   moderator:
     driver: bridge
-  Yearbook_message-queue:
+  YearbookGaming_message-queue:
     external: true
 volumes:
   postgres_data:

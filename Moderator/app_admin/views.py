@@ -6,7 +6,7 @@ from rest_framework.response import Response
 
 # Project imports
 from app_admin import login, logout
-from app_admin.serializers import YearbookUserSerializer
+from app_admin.serializers import YearbookGamingUserSerializer
 from user_client.signals import user_logout
 from utils.views import APIView
 from utils.functions import generate_access_token
@@ -35,7 +35,7 @@ class LoginView(APIView):
         """
         if request.user.is_authenticated:
             # If user is logged in, serialize the user instance
-            serializer = YearbookUserSerializer(instance=request.user)
+            serializer = YearbookGamingUserSerializer(instance=request.user)
             return Response(
                 data={
                     "status": "success",
@@ -57,7 +57,7 @@ class LoginView(APIView):
         
         Verifies the token by REST API call to the auth service
         If the user corrosponding to the token already exists, then simple login
-        otherwise creates the related YearbookUser, YearbookPlayer, Role, Group objects
+        otherwise creates the related YearbookGamingUser, YearbookGamingPlayer, Role, Group objects
     
         Args:
             request (Request): the drf wrapped wsgi request
@@ -79,7 +79,7 @@ class LoginView(APIView):
                 # Log the user out. 
                 logout(request)
             else:
-                serializer = YearbookUserSerializer(request.user)
+                serializer = YearbookGamingUserSerializer(request.user)
                 return Response(
                     data={
                         "status": "success",
@@ -116,7 +116,7 @@ class LoginView(APIView):
             data={
                 "status": "success", 
                 "message": "User Logged in successfully",
-                "data": YearbookUserSerializer(user).data
+                "data": YearbookGamingUserSerializer(user).data
             },
             status=status.HTTP_200_OK
         )

@@ -4,4 +4,4 @@ from utils.models import TimeStampedModel
 
 class ReportingTicket(TimeStampedModel):
     content = models.ForeignKey("content_app.Content", on_delete=models.CASCADE)
-    user = models.ForeignKey("app_admin.YearbookUser", on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey("app_admin.YearbookGamingUser", on_delete=models.SET_NULL, null=True)

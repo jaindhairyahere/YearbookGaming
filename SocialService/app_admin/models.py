@@ -74,7 +74,7 @@ class Role(TimeStampedModel):
     role_id = models.PositiveSmallIntegerField(default=0)
     group = models.OneToOneField(Group, on_delete=models.CASCADE)
 
-class YearbookUserManager(models.Manager):
+class YearbookGamingUserManager(models.Manager):
     use_in_migrations = True
     def get_by_natural_key(self, username):
         return self.get(**{self.model.USERNAME_FIELD: username})
@@ -88,17 +88,17 @@ class YearbookUserManager(models.Manager):
     
     def _create_user(self, username, **extra_fields):
         """
-        Create and save a user with the given Yearbook_id, role
+        Create and save a user with the given YearbookGaming_id, role
         """
-        Yearbook_id = extra_fields.pop('Yearbook_id', None)
+        YearbookGaming_id = extra_fields.pop('YearbookGaming_id', None)
         role = extra_fields.pop('role', None)
         role = Role.objects.get(role_id=role)
-        if not Yearbook_id:
-            raise ValueError('The given Yearbook_id must be set')
+        if not YearbookGaming_id:
+            raise ValueError('The given YearbookGaming_id must be set')
         # Lookup the real model class from the global app registry so this
         # manager method can be used in migrations. This is fine because
         # managers are by definition working on the real model.
-        user = self.model(Yearbook_id=Yearbook_id, role=role)
+        user = self.model(YearbookGaming_id=YearbookGaming_id, role=role)
         user.save(using=self._db)
         return user
     
@@ -120,20 +120,20 @@ class YearbookUserManager(models.Manager):
         return self._create_user(username, **extra_fields)
 
 
-class YearbookUser(TimeStampedModel, PermissionsMixin):
+class YearbookGamingUser(TimeStampedModel, PermissionsMixin):
     """Model for storing Users. This is also the AUTH_USER_MODEL used in the service
     
     Defined Fields:
-        Yearbook_id: ID of the `YearbookUser` that is stored in the Auth Service Database
-        username: Username of the `YearbookUser` that is stored in the Auth Service Database
-        email: Email of the `YearbookUser` that is stored in the Auth Service Database
-        role: Role of the `YearbookUser` that is stored in the Auth Service Database. 
+        YearbookGaming_id: ID of the `YearbookGamingUser` that is stored in the Auth Service Database
+        username: Username of the `YearbookGamingUser` that is stored in the Auth Service Database
+        email: Email of the `YearbookGamingUser` that is stored in the Auth Service Database
+        role: Role of the `YearbookGamingUser` that is stored in the Auth Service Database. 
             Foreign key to `Role` model
         is_staff: Whether this User can access the admin portal
         is_active: Whether this User is allowed to Login
     
     Reverse Fields:
-        moderator: The Object of `YearbookModerator` associated with this instance of `YearbookUser`
+        moderator: The Object of `YearbookGamingModerator` associated with this instance of `YearbookGamingUser`
     
     Inherited Fields:
         created_on (TimeStampedModel): Time when an instance is created on the server side
@@ -147,10 +147,10 @@ class YearbookUser(TimeStampedModel, PermissionsMixin):
     For more information on the fields, check: 
         https://docs.djangoproject.com/en/4.0/topics/auth/customizing/
     """
-    Yearbook_id = models.PositiveIntegerField(
+    YearbookGaming_id = models.PositiveIntegerField(
         default=1, unique=True,
         help_text=
-            'Designated the user\'s Yearbook_id. This is supplied by the Auth-Service'
+            'Designated the user\'s YearbookGaming_id. This is supplied by the Auth-Service'
         )
     username = models.CharField(
         max_length=100,
@@ -159,12 +159,12 @@ class YearbookUser(TimeStampedModel, PermissionsMixin):
             'Designated the user\'s username. This is supplied by the Auth-Service'
     )
     email = models.EmailField(
-        default="default@Yearbooktoys.com",
+        default="default@YearbookGamingtoys.com",
         help_text= 'Designated the user\'s email. This is supplied by the Auth-Service'
     )
     role = models.ForeignKey(
         "app_admin.Role", on_delete=models.CASCADE,
-        related_name="Yearbook_users", 
+        related_name="YearbookGaming_users", 
         help_text=
             'Designates the Role this user has using a foreign key to the Role table'
             'This is usually supplied by the Auth-Service'
@@ -186,8 +186,8 @@ class YearbookUser(TimeStampedModel, PermissionsMixin):
         ,
     )
     
-    objects = YearbookUserManager()
-    USERNAME_FIELD = 'Yearbook_id'
+    objects = YearbookGamingUserManager()
+    USERNAME_FIELD = 'YearbookGaming_id'
     REQUIRED_FIELDS = ['role', 'username'] # Required to create a user using `createsuperuser` 
 
     @staticmethod
@@ -246,8 +246,8 @@ class Policy(TimeStampedModel):
     chat_policy = models.IntegerField(default=ChatPolicyChoices.ALLOW_FRIENDS, choices=ChatPolicyChoices.choices)
     friend_policy = models.IntegerField(default=FriendPolicyChoices.ALLOW_REQUESTS, choices=FriendPolicyChoices.choices)
 
-class YearbookPlayer(TimeStampedModel):
-    user = models.OneToOneField(YearbookUser, on_delete=models.CASCADE, related_name="player")
+class YearbookGamingPlayer(TimeStampedModel):
+    user = models.OneToOneField(YearbookGamingUser, on_delete=models.CASCADE, related_name="player")
     friends = models.ManyToManyField("self")
     policy = models.ForeignKey(Policy, on_delete=models.CASCADE)
     blocked_users = models.ManyToManyField("self")

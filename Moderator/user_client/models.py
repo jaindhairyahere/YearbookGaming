@@ -51,7 +51,7 @@ class Content(TimeStampedModel, ModerationBase):
     """Model for storing all types of content
     
     Defined Fields:
-        user: Foreign Key to the `YearbookUser` who created the content
+        user: Foreign Key to the `YearbookGamingUser` who created the content
         content_type: Describes the type of content [Post, Comment, Chat, History]
         text: The text part of the content
         parent: Foreign Key to self (with null=True)
@@ -76,7 +76,7 @@ class Content(TimeStampedModel, ModerationBase):
     """
     user = models.BigIntegerField(
         null=False,
-        help_text='Foreign Key to the `YearbookUser` (of SocialService) who created the content'
+        help_text='Foreign Key to the `YearbookGamingUser` (of SocialService) who created the content'
     )
     content_type = models.IntegerField(
         default=ContentTypeChoices.POST, 
@@ -153,7 +153,7 @@ class Content(TimeStampedModel, ModerationBase):
         )
 
 
-class YearbookModerator(TimeStampedModel):
+class YearbookGamingModerator(TimeStampedModel):
     """Stores a reference to User from the 'Auth Service'.
 
     Fields:
@@ -168,9 +168,9 @@ class YearbookModerator(TimeStampedModel):
     
     """
     user = models.OneToOneField(
-        "app_admin.YearbookUser", on_delete=models.CASCADE, 
+        "app_admin.YearbookGamingUser", on_delete=models.CASCADE, 
         related_name="moderator", help_text=
-        'Foreign key to `YearbookUser` used to authenticate this moderator'
+        'Foreign key to `YearbookGamingUser` used to authenticate this moderator'
     )
     is_mod_available = models.BooleanField(
         'logged_in', 
@@ -187,7 +187,7 @@ class YearbookModerator(TimeStampedModel):
     
     @staticmethod
     def get_moderator():
-        mod = YearbookModerator.objects.filter(is_mod_available=True).first()
+        mod = YearbookGamingModerator.objects.filter(is_mod_available=True).first()
         return mod if mod else None
 
     def set_active(self, shared=True):
@@ -203,7 +203,7 @@ class ModerationTicket(TimeStampedModel, ModerationBase):
     """Model for storing Moderation Tickets
     
     Defined Fields:
-        user: `YearbookUser` associated with the ticket, CAN BE NULL
+        user: `YearbookGamingUser` associated with the ticket, CAN BE NULL
         content: The content associated with the ticket, can't be null
         pulled_on: Time when the ticket is pulled by the moderator. Default is False
         completed_on: Time when the ticket is marked complete by the moderator
@@ -218,12 +218,12 @@ class ModerationTicket(TimeStampedModel, ModerationBase):
             , for the tickets that involved a `content`    
     
     Property Methods:
-        moderator: Return the `YearbookModerator` associated 
+        moderator: Return the `YearbookGamingModerator` associated 
     """
     user = models.ForeignKey(
-        "app_admin.YearbookUser", null=True, 
+        "app_admin.YearbookGamingUser", null=True, 
         on_delete=models.SET_NULL, related_name="tickets",
-        help_text="`YearbookUser` associated with the ticket, CAN BE NULL"
+        help_text="`YearbookGamingUser` associated with the ticket, CAN BE NULL"
     )
     content = models.ForeignKey(
         "user_client.Content", on_delete=models.CASCADE, related_name="tickets",
@@ -267,7 +267,7 @@ class TicketBoard(TimeStampedModel):
     """Model for storing all types of performance statistics of an user/moderator
     
     Defined Fields:
-        user: Foreign Key to the `YearbookUser` to whom this board belongs
+        user: Foreign Key to the `YearbookGamingUser` to whom this board belongs
         escalated: Number of escalated tickets
         rejected: Number of rejected tickets
         approved: Number of approved tickets
@@ -291,9 +291,9 @@ class TicketBoard(TimeStampedModel):
     ##### TODO - Descriptive statistics about the board, like calculating percentages etc. Should be done on client side
     """
     user = models.OneToOneField(
-        "app_admin.YearbookUser", on_delete=models.CASCADE, 
+        "app_admin.YearbookGamingUser", on_delete=models.CASCADE, 
         related_name="board", help_text=
-        'Foreign key to `YearbookUser` used to authenticate this moderator'
+        'Foreign key to `YearbookGamingUser` used to authenticate this moderator'
     )
     escalated = models.IntegerField(
         default=0,

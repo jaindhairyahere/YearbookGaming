@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
                 ('updated_on', models.DateTimeField(auto_now=True, db_column='updated_on', help_text='DateTime of when the object was last updated')),
                 ('deleted_on', models.DateTimeField(default=None, help_text='DateTime of when the object was deletedNone if object is not deleted yet', null=True)),
                 ('status', models.PositiveSmallIntegerField(choices=[(1, 'Approved'), (2, 'Rejected'), (3, 'Under review'), (4, 'Marked Spam')], default=3, help_text='Status of any object in the database in the context of moderation')),
-                ('user', models.BigIntegerField(default=1, help_text='Foreign Key to the `YearbookUser` (of SocialService) who created the content')),
+                ('user', models.BigIntegerField(default=1, help_text='Foreign Key to the `YearbookGamingUser` (of SocialService) who created the content')),
                 ('content_type', models.IntegerField(choices=[(1, 'Chat'), (2, 'Chat History'), (3, 'Feed Post'), (4, 'Comment')], default=3, help_text='Integer denoting the `content_type` of the objectAvailable choices are `ContentTypeChoices.choices`')),
                 ('text', models.TextField(blank=True, help_text='All the textual data of the post. May contain links as well')),
                 ('parent', models.ForeignKey(help_text='ForeignKey relationship to an object of the same classUsed to implement parent-child relationsips. Eg- Post and its comments', null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='children', to='user_client.content')),
@@ -72,7 +72,7 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-            name='YearbookModerator',
+            name='YearbookGamingModerator',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('created_on', models.DateTimeField(auto_now_add=True, db_column='created_on', help_text='DateTime of when the object was created')),
@@ -85,7 +85,7 @@ class Migration(migrations.Migration):
                 ('posts_abandoned', models.IntegerField(default=0, help_text='Number of posts that had to be re-queued because this moderator abandoned')),
                 ('user_rating', models.DecimalField(decimal_places=2, default=0, help_text='User Rating out of 10. Its stored in the format AB.XYZ', max_digits=5)),
                 ('total_logged_in_time', models.IntegerField(default=0, help_text='Total time in minutes for which the moderator was logged in the system')),
-                ('user', models.OneToOneField(help_text='Foreign key to `YearbookUser` used to authenticate this moderator', on_delete=django.db.models.deletion.CASCADE, related_name='moderator', to=settings.AUTH_USER_MODEL)),
+                ('user', models.OneToOneField(help_text='Foreign key to `YearbookGamingUser` used to authenticate this moderator', on_delete=django.db.models.deletion.CASCADE, related_name='moderator', to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'ordering': ('-updated_on', '-created_on'),

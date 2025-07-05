@@ -1,7 +1,7 @@
 from rest_framework.decorators import APIView, api_view
 from rest_framework.response import Response
 from rest_framework import status
-from app_admin.models import YearbookUser
+from app_admin.models import YearbookGamingUser
 from content_app.models import Content
 from communication_app.models import Channel, Subscription
 from django.middleware.http import ConditionalGetMiddleware
@@ -10,7 +10,7 @@ from django.middleware.http import ConditionalGetMiddleware
 def report_user(request, user_id):
     # Get the reporting user and the user to be reported
     reporting_user = request.user
-    reported_user = YearbookUser.objects.filter(id=user_id).first()
+    reported_user = YearbookGamingUser.objects.filter(id=user_id).first()
     if reported_user is None:
         # reported user not found
         return Response(
@@ -50,7 +50,7 @@ def report_user(request, user_id):
 def block_user(request, user_id):
     # Get the reporting user and the user to be reported
     reporting_user = request.user
-    reported_user = YearbookUser.objects.get(id=user_id)
+    reported_user = YearbookGamingUser.objects.get(id=user_id)
     if reported_user is None:
         # reported user not found
         return Response(

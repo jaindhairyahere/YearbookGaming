@@ -1,6 +1,6 @@
 from django.contrib import admin
 from app_admin.forms import TokenAuthenticationForm
-from app_admin.models import YearbookPlayer, YearbookUser, Role
+from app_admin.models import YearbookGamingPlayer, YearbookGamingUser, Role
 from utils.functions import convert_perm_crud_to_avcd
 # Register your models here.
 
@@ -11,7 +11,7 @@ admin.site.login_form = TokenAuthenticationForm
 admin.site.login_template = "./login.html"
 
 
-class YearbookUserAdmin(admin.ModelAdmin):
+class YearbookGamingUserAdmin(admin.ModelAdmin):
     """Custom Model Admin class so that we are able to customize the admin portal.
     This inherits from ModelAdmin and overrides the `get_model_perms` method. This was
     important because our Permission objects don't have an AVCD permission naming convention
@@ -46,6 +46,6 @@ class YearbookUserAdmin(admin.ModelAdmin):
         return original_perms
 
 # Register the models using our custom ModelAdmin
-admin.site.register(YearbookUser, YearbookUserAdmin)
-admin.site.register(YearbookPlayer, YearbookUserAdmin)
-admin.site.register(Role, YearbookUserAdmin)
+admin.site.register(YearbookGamingUser, YearbookGamingUserAdmin)
+admin.site.register(YearbookGamingPlayer, YearbookGamingUserAdmin)
+admin.site.register(Role, YearbookGamingUserAdmin)

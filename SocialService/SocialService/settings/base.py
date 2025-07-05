@@ -128,7 +128,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-user-model
-AUTH_USER_MODEL = 'app_admin.YearbookUser'
+AUTH_USER_MODEL = 'app_admin.YearbookGamingUser'
 
 # PASSWORDS
 # ------------------------------------------------------------------------------
@@ -160,7 +160,7 @@ MIDDLEWARE = [
 ]
 
 RAISE_ROLLBAR = env.bool("RAISE_ROLLBAR", False)
-Yearbook_ENV = env.str("Yearbook_ENV", "dev")
+YearbookGaming_ENV = env.str("YearbookGaming_ENV", "dev")
 
 if RAISE_ROLLBAR:
     MIDDLEWARE.append("rollbar.contrib.django.middleware.RollbarNotifierMiddleware")
@@ -170,7 +170,7 @@ if RAISE_ROLLBAR:
 
     ROLLBAR = {
         "access_token": "162b637a57874dffbe032c422328d4ba",
-        "environment": Yearbook_ENV,
+        "environment": YearbookGaming_ENV,
         "root": ROOT_DIR,
     }
 
@@ -260,9 +260,9 @@ EMAIL_TIMEOUT = 5
 # ADMIN
 # ------------------------------------------------------------------------------
 # Django Admin URL.
-ADMIN_URL = env("ADMIN_URL", default="Yearbook_admin/")
+ADMIN_URL = env("ADMIN_URL", default="YearbookGaming_admin/")
 # https://docs.djangoproject.com/en/dev/ref/settings/#admins
-ADMINS = [("""Yearbook Jain""", "Yearbook.jain@Yearbooktoys.com")]
+ADMINS = [("""YearbookGaming Jain""", "YearbookGaming.jain@YearbookGamingtoys.com")]
 # https://docs.djangoproject.com/en/dev/ref/settings/#managers
 MANAGERS = ADMINS
 
@@ -302,7 +302,7 @@ EMAIL_HOST_USER = "apikey"  # this is exactly the value 'apikey'
 EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = "developer@Yearbooktoys.com"
+DEFAULT_FROM_EMAIL = "developer@YearbookGamingtoys.com"
 SENDGRID_RESET_PASSWORD_TEMPLATE_ID = "d-630e1da767e0488c911641dbeda61343"
 JWT_EXPIRE_TIME = 15
 # rest framework
@@ -313,7 +313,7 @@ REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
 }
 
-TOKEN_SALT_KEY = env.str("TOKEN_SALT", default="HAIL Yearbook !!")
+TOKEN_SALT_KEY = env.str("TOKEN_SALT", default="HAIL YearbookGaming !!")
 
 INTERNAL_SERVICE_TIMEOUT = 50000000
 IS_CRON = env.bool("RUN_CRON", False)
@@ -329,7 +329,7 @@ QUEUE_BROKER = os.environ.get("MESSAGE_QUEUE_BROKER", MessageQueue.DEFAULT_BROKE
 QUEUE_SCHEME = os.environ.get("MESSAGE_QUEUE_SCHEME", MessageQueue.DEFAULT_SCHEME)
 QUEUE_HOST = os.environ.get("MESSAGE_QUEUE_HOST")
 QUEUE_PORT = os.environ.get(f"{QUEUE_BROKER}_PORT") # 5672
-QUEUE_USER = os.environ.get(f"{QUEUE_BROKER}_USER") # "Yearbookadmin"
+QUEUE_USER = os.environ.get(f"{QUEUE_BROKER}_USER") # "YearbookGamingadmin"
 QUEUE_PASSWORD = os.environ.get(f"{QUEUE_BROKER}_PASSWORD") # "admin1234"
 
 MESSAGE_QUEUE_URL = f"{QUEUE_SCHEME}://{QUEUE_USER}:{QUEUE_PASSWORD}@{QUEUE_HOST}:{QUEUE_PORT}"
@@ -361,7 +361,7 @@ SOCIAL_SERVICE_URL = os.environ.get("SOCIAL_SERVICE_URL")
 # S3 Settings
 AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")  # s3_media_user
 AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")  # s3_media_user
-BUCKET_NAME = os.environ.get("S3_BUCKET_NAME", "Yearbook_dev") #'Yearbook_dev'
+BUCKET_NAME = os.environ.get("S3_BUCKET_NAME", "YearbookGaming_dev") #'YearbookGaming_dev'
 AWS_S3_REGION_NAME = "us-east-1"
 
 

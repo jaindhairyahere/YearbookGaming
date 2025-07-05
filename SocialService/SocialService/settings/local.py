@@ -16,7 +16,7 @@ ALLOWED_HOSTS = [
     "127.0.0.1",
     "mtdeploy-env.eba-kz2bm5i6.us-west-2.elasticbeanstalk.com",
     "*",
-    "Yearbook-social-django"
+    "YearbookGaming-social-django"
 ]
 
 if env.str("ALLOWED_HOSTS", None):
@@ -52,8 +52,8 @@ DEBUG_TOOLBAR_CONFIG = {
     "SHOW_TEMPLATE_CONTEXT": True,
 }
 # https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#internal-ips
-INTERNAL_IPS = ["127.0.0.1", "10.0.2.2", "*", "Yearbook-social-django",]
-EXTERNAL_IPS = ["Yearbook-social-django",]
+INTERNAL_IPS = ["127.0.0.1", "10.0.2.2", "*", "YearbookGaming-social-django",]
+EXTERNAL_IPS = ["YearbookGaming-social-django",]
 # django-extensions
 # ------------------------------------------------------------------------------
 # https://django-extensions.readthedocs.io/en/latest/installation_instructions.html#configuration
@@ -71,15 +71,15 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # uploading files to s3    bucket_name = "websitestaticfile"
 AWS_STORAGE_BUCKET_NAME_STATIC = env("DJANGO_AWS_STORAGE_BUCKET_NAME_STATIC", default="websitestaticfile")
 AWS_STORAGE_BUCKET_NAME_USER_FEED = env("DJANGO_AWS_STORAGE_BUCKET_NAME_USERFEED", default="userfeedmedia")
-STATIC_URL = "https://websitestaticfile.s3.amazonaws.com/Yearbook_admin/"
-# STATICFILES_STORAGE = "Yearbook_app.utils.storages.StaticRootS3Boto3Storage"
+STATIC_URL = "https://websitestaticfile.s3.amazonaws.com/YearbookGaming_admin/"
+# STATICFILES_STORAGE = "YearbookGaming_app.utils.storages.StaticRootS3Boto3Storage"
 
 PRESIGNED_EXPIRATION_TIME = 600
 AWS_PRELOAD_METADATA = True
 AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
 AWS_S3_VERIFY = True
-# DEFAULT_FILE_STORAGE = "Yearbook_app.utils.storages.MediaRootS3Boto3Storage"
+# DEFAULT_FILE_STORAGE = "YearbookGaming_app.utils.storages.MediaRootS3Boto3Storage"
 AWS_S3_OBJECT_PARAMETERS = {
     "CacheControl": "max-age=86400",
 }
@@ -99,7 +99,7 @@ MAX_DEQUE_LIMIT = 5
 S3_CLIENT = boto3.client('s3', 
                          aws_access_key_id=AWS_ACCESS_KEY_ID, 
                          aws_secret_access_key=AWS_SECRET_ACCESS_KEY)
-AUTH_USER_MODEL = 'app_admin.YearbookUser'
+AUTH_USER_MODEL = 'app_admin.YearbookGamingUser'
 
 
 USE_DUMMY_LOGIN = True

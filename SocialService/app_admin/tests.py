@@ -1,5 +1,5 @@
 from django.test import TestCase, RequestFactory
-from app_admin.models import YearbookUser, YearbookPlayer
+from app_admin.models import YearbookGamingUser, YearbookGamingPlayer
 from django.contrib.auth.models import AnonymousUser
 from rest_framework import status
 from rest_framework.test import APIRequestFactory

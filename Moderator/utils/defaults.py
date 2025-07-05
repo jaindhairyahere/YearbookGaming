@@ -8,8 +8,8 @@ class MessageQueue:
     DEFAULT_ROUTING_KEY = "content.tickets.json"
         
 class POSTGRES:
-    DEFAULT_DB = "Yearbookdb"
-    DEFAULT_USER = "Yearbookadmin"
+    DEFAULT_DB = "YearbookGamingdb"
+    DEFAULT_USER = "YearbookGamingadmin"
     DEFAULT_PASSWORD = "paassword"
     DEFAULT_HOST = "db"
     DEFAULT_PORT = 5432

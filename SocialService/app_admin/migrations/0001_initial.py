@@ -17,16 +17,16 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='YearbookUser',
+            name='YearbookGamingUser',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('is_superuser', models.BooleanField(default=False, help_text='Designates that this user has all permissions without explicitly assigning them.', verbose_name='superuser status')),
                 ('created_on', models.DateTimeField(auto_now_add=True, db_column='created_on')),
                 ('updated_on', models.DateTimeField(auto_now=True, db_column='updated_on')),
                 ('deleted_on', models.DateTimeField(db_column='deleted_on', default=None, null=True)),
-                ('Yearbook_id', models.PositiveIntegerField(default=1, help_text="Designated the user's Yearbook_id. This is supplied by the Auth-Service", unique=True)),
+                ('YearbookGaming_id', models.PositiveIntegerField(default=1, help_text="Designated the user's YearbookGaming_id. This is supplied by the Auth-Service", unique=True)),
                 ('username', models.CharField(help_text="Designated the user's username. This is supplied by the Auth-Service", max_length=100, unique=True)),
-                ('email', models.EmailField(default='default@Yearbooktoys.com', help_text="Designated the user's email. This is supplied by the Auth-Service", max_length=254)),
+                ('email', models.EmailField(default='default@YearbookGamingtoys.com', help_text="Designated the user's email. This is supplied by the Auth-Service", max_length=254)),
                 ('is_staff', models.BooleanField(default=True, help_text='Designates whether this user should be treated as staff. Only staff can access the admin portal.', verbose_name='staff')),
                 ('is_active', models.BooleanField(default=True, help_text='Designates whether this user should be treated as active. Unselect this instead of deleting accounts.', verbose_name='active')),
                 ('groups', models.ManyToManyField(blank=True, help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.', related_name='user_set', related_query_name='user', to='auth.Group', verbose_name='groups')),
@@ -37,7 +37,7 @@ class Migration(migrations.Migration):
                 'abstract': False,
             },
             managers=[
-                ('objects', app_admin.models.YearbookUserManager()),
+                ('objects', app_admin.models.YearbookGamingUserManager()),
             ],
         ),
         migrations.CreateModel(
@@ -97,14 +97,14 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-            name='YearbookPlayer',
+            name='YearbookGamingPlayer',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('created_on', models.DateTimeField(auto_now_add=True, db_column='created_on')),
                 ('updated_on', models.DateTimeField(auto_now=True, db_column='updated_on')),
                 ('deleted_on', models.DateTimeField(db_column='deleted_on', default=None, null=True)),
-                ('blocked_users', models.ManyToManyField(related_name='_app_admin_Yearbookplayer_blocked_users_+', to='app_admin.YearbookPlayer')),
-                ('friends', models.ManyToManyField(related_name='_app_admin_Yearbookplayer_friends_+', to='app_admin.YearbookPlayer')),
+                ('blocked_users', models.ManyToManyField(related_name='_app_admin_YearbookGamingplayer_blocked_users_+', to='app_admin.YearbookGamingPlayer')),
+                ('friends', models.ManyToManyField(related_name='_app_admin_YearbookGamingplayer_friends_+', to='app_admin.YearbookGamingPlayer')),
                 ('policy', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='app_admin.policy')),
                 ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='player', to=settings.AUTH_USER_MODEL)),
             ],
@@ -115,12 +115,12 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.AddField(
-            model_name='Yearbookuser',
+            model_name='YearbookGaminguser',
             name='role',
-            field=models.ForeignKey(help_text='Designates the Role this user has using a foreign key to the Role tableThis is usually supplied by the Auth-Service', on_delete=django.db.models.deletion.CASCADE, related_name='Yearbook_users', to='app_admin.role'),
+            field=models.ForeignKey(help_text='Designates the Role this user has using a foreign key to the Role tableThis is usually supplied by the Auth-Service', on_delete=django.db.models.deletion.CASCADE, related_name='YearbookGaming_users', to='app_admin.role'),
         ),
         migrations.AddField(
-            model_name='Yearbookuser',
+            model_name='YearbookGaminguser',
             name='user_permissions',
             field=models.ManyToManyField(blank=True, help_text='Specific permissions for this user.', related_name='user_set', related_query_name='user', to='auth.Permission', verbose_name='user permissions'),
         ),

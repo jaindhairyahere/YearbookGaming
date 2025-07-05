@@ -11,11 +11,11 @@ def get_dummy_data(token: str):
     """
     tokens = token.split('_')
     if token.endswith("admin_moderator"):
-        Yearbook_id=2
+        YearbookGaming_id=2
         role_id=2
         group_name="ADMIN_MODERATOR"
     elif token.endswith("simple_moderator"):
-        Yearbook_id=1
+        YearbookGaming_id=1
         role_id=1
         group_name="SIMPLE_MODERATOR"
     elif token.endswith("wrong_token"):
@@ -23,7 +23,7 @@ def get_dummy_data(token: str):
             "success": False
         }
     else:
-        Yearbook_id = int(tokens[-1])
+        YearbookGaming_id = int(tokens[-1])
         if tokens[-2]=='client':
             role_id = 3
             group_name = "CLIENT_USER"
@@ -34,10 +34,10 @@ def get_dummy_data(token: str):
             role_id = 2
             group_name = "ADMIN_MODERATOR"
     return {
-        "Yearbook_id": Yearbook_id,
+        "YearbookGaming_id": YearbookGaming_id,
         "role_id": role_id,
         "group_name": group_name,
-        "username": f"nick_{Yearbook_id}_{tokens[0]}",
-        "email": f"nick_{Yearbook_id}_{tokens[0]}@Yearbooktoys.com",
+        "username": f"nick_{YearbookGaming_id}_{tokens[0]}",
+        "email": f"nick_{YearbookGaming_id}_{tokens[0]}@YearbookGamingtoys.com",
         "success": True
     }

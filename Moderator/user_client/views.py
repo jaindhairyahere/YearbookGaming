@@ -9,13 +9,13 @@ from app_admin.permissions import HasGroupPermission, LoggedInPermission
 from utils.choices import ModerationStatesChoices
 from user_client.signals import ticket_patched
 from user_client.models import(
-    FeedbackTags, YearbookModerator, 
+    FeedbackTags, YearbookGamingModerator, 
     ModerationTicket, TicketBoard,
     UploadObject, Content
 )
 from user_client.rest_apis import SocialService
 from user_client.serializers import (
-    MediaSerializer, YearbookModeratorSerializer, 
+    MediaSerializer, YearbookGamingModeratorSerializer, 
     ModerationTicketSerializer, ContentSerializer
 )
 from user_client.tasks import Queue, dequeue_from_broker, enqueue_ticket
@@ -39,7 +39,7 @@ class ProfileView(APIView):
     required_groups = {
         "GET": ["ADMIN_MODERATOR", "SELF"]
     }
-    pk_class = YearbookModerator
+    pk_class = YearbookGamingModerator
 
     def get(self, request, pk=None):
         """Get the profile of a single moderator with id=pk OR if pk is None, 
@@ -51,8 +51,8 @@ class ProfileView(APIView):
             request (Request): the drf wrapped wsgi request
                 query_params : {}
                 
-            pk (int (YearbookModerator), optional): 
-                Id of the Yearbook moderator whoose profile we want to see. Defaults to None. 
+            pk (int (YearbookGamingModerator), optional): 
+                Id of the YearbookGaming moderator whoose profile we want to see. Defaults to None. 
                 If pk is none, then user should be an admin_moderator for the view to be
                 called; otherwise DRF returns a Forbidden 403 response. 
                 Example {url}/{pk}/
@@ -63,13 +63,13 @@ class ProfileView(APIView):
         """
         # starttime = timezone.now()
         if pk is None:
-            moderators = YearbookModerator.objects.all().select_related('user', 'user__board').prefetch_related('user__tickets')
+            moderators = YearbookGamingModerator.objects.all().select_related('user', 'user__board').prefetch_related('user__tickets')
             message = "Fetched list of all moderators"
         else:
-            moderators = YearbookModerator.objects.filter(id=pk).select_related('user', 'user__board').prefetch_related('user__tickets')
+            moderators = YearbookGamingModerator.objects.filter(id=pk).select_related('user', 'user__board').prefetch_related('user__tickets')
             message = "Fetched the requested moderator"
             
-        serializer = YearbookModeratorSerializer(
+        serializer = YearbookGamingModeratorSerializer(
             moderators, partial=True, 
             context={"purpose": "download", "exclude": [("user", ["role","groups", "user_permissions"]), ("tickets", ["user"])]}, 
             many=True)
@@ -376,7 +376,7 @@ class TicketHistoryAPI(APIView):
          'GET': ["ADMIN_MODERATOR", "SELF"],
          'PATCH': ["ADMIN_MODERATOR", "SELF"]
     }
-    pk_class = YearbookModerator
+    pk_class = YearbookGamingModerator
     queryset = ModerationTicket.objects.all().select_related('content').prefetch_related('content__medias')
     
     def get(self, request, pk=None):
@@ -395,7 +395,7 @@ class TicketHistoryAPI(APIView):
                     created_end (string): Get tickets only before this date
                     completed_on (string): Get the completed time (unmodifiable)
                 }
-            pk (int (YearbookModerator), Optional): 
+            pk (int (YearbookGamingModerator), Optional): 
                 Id of the moderator, whoose tickets we want to get. Defaults to None
         
         URLs:

@@ -6,8 +6,8 @@ from rest_framework import status
 from rest_framework.decorators import APIView, api_view
 
 # Project Imports
-from app_admin.models import YearbookUser
-from app_admin.serializers import YearbookPlayerSerializer
+from app_admin.models import YearbookGamingUser
+from app_admin.serializers import YearbookGamingPlayerSerializer
 from app_admin.permissions import LoggedInPermission, HasGroupPermission
 from communication_app.models import Channel, Subscription, GameRequest
 from communication_app.serializers import SubscriptionSerializer, ChannelSerializer, GameRequestSerializer
@@ -277,7 +277,7 @@ class RequestView(APIView):
         # Get the friend's id, and fetch the Player from it
         friend_id = request.data.get('friend_user_id')
         assert(friend_id!=user.id)
-        friend = YearbookUser.objects.filter(id=friend_id).first()
+        friend = YearbookGamingUser.objects.filter(id=friend_id).first()
         if friend is None:
             # Requested friend doesn't exist
             return Response(
@@ -403,7 +403,7 @@ class FriendsListView(APIView):
     def get(self, request):
         """Get all the friends of the current user"""
         user = request.user
-        serializer = YearbookPlayerSerializer(user.player.friends, many=True)
+        serializer = YearbookGamingPlayerSerializer(user.player.friends, many=True)
         return Response(
             data={
                 "status": "success",

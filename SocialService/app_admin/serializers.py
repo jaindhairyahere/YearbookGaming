@@ -3,7 +3,7 @@ from django.contrib.contenttypes.models import  ContentType
 from rest_framework import serializers
 
 # Project Imports
-from app_admin.models import Group, YearbookUser, Permission, Role, YearbookPlayer, Policy
+from app_admin.models import Group, YearbookGamingUser, Permission, Role, YearbookGamingPlayer, Policy
 from utils.serializers import (
     RemoveDeletedModelSerializer, PermissionModelSerializer, 
     SerializerMethodField
@@ -44,11 +44,11 @@ class RoleSerializer(RemoveDeletedModelSerializer):
         model = Role
         fields = ("group",) 
         
-class YearbookUserSerializer(RemoveDeletedModelSerializer):
-    """Model Serializer for the django model `YearbookUser`."""
+class YearbookGamingUserSerializer(RemoveDeletedModelSerializer):
+    """Model Serializer for the django model `YearbookGamingUser`."""
     role = RoleSerializer()
     class Meta:
-        model = YearbookUser
+        model = YearbookGamingUser
         exclude = ("is_superuser", "username", "is_active", "is_staff", "groups", "user_permissions", )
         depth = 3
 
@@ -60,12 +60,12 @@ class PolicySerializer(RemoveDeletedModelSerializer):
         fields = ("__all__")
         
 
-class YearbookPlayerSerializer(RemoveDeletedModelSerializer):
-    """Model Serializer for the django model `YearbookPlayer`."""
-    user = YearbookUserSerializer()
+class YearbookGamingPlayerSerializer(RemoveDeletedModelSerializer):
+    """Model Serializer for the django model `YearbookGamingPlayer`."""
+    user = YearbookGamingUserSerializer()
     policy = PolicySerializer()
     
     class Meta:
-        model = YearbookPlayer
+        model = YearbookGamingPlayer
         fields = ("id", "user", "policy")
         depth = 2

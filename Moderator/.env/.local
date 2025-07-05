@@ -2,8 +2,8 @@
 USE_DOCKER=yes
 IPYTHONDIR=/app/.ipython
 
-# Yearbook Env
-Yearbook_ENV=local
+# YearbookGaming Env
+YearbookGaming_ENV=local
 
 # AWS Credentials
 AWS_ACCESS_KEY_ID=<YourAccessKeyId>
@@ -36,22 +36,22 @@ CELERY_RESULT_BACKEND=django-db
 MAX_QUEUE_SIZE=500
 
 # Database Settings
-POSTGRES_USER=Yearbookadmin
+POSTGRES_USER=YearbookGamingadmin
 POSTGRES_PASSWORD=<YourPassword>
 POSTGRES_HOST=db
 POSTGRES_PORT=5432
-POSTGRES_DB=Yearbook_moderator
+POSTGRES_DB=YearbookGaming_moderator
 
 # Message Queue Setting
 MESSAGE_QUEUE_BROKER=RABBITMQ
 MESSAGE_QUEUE_SCHEME=amqp
 MESSAGE_QUEUE_HOST=mq
 RABBITMQ_PORT=5672
-RABBITMQ_USER=Yearbookadmin
+RABBITMQ_USER=YearbookGamingadmin
 RABBITMQ_PASSWORD=<YourPassword>
 
 # Social Service URL
-SOCIAL_SERVICE_URL=http://Yearbook-social-django:8000/
+SOCIAL_SERVICE_URL=http://YearbookGaming-social-django:8000/
 
 # APP Name
 APP_NAME=Moderator

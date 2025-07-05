@@ -25,7 +25,7 @@ class Migration(migrations.Migration):
                 ('content_type', models.IntegerField(choices=[(1, 'Chat'), (2, 'Chat History'), (3, 'Feed Post'), (4, 'Comment')], default=3, help_text='Integer denoting the `content_type` of the objectAvailable choices are `ContentTypeChoices.choices`')),
                 ('text', models.TextField(blank=True, help_text='All the textual data of the post. May contain links as well')),
                 ('parent', models.ForeignKey(help_text='ForeignKey relationship to an object of the same classUsed to implement parent-child relationsips. Eg- Post and its comments', null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='children', to='content_app.content')),
-                ('user', models.ForeignKey(help_text='Foreign Key to the `YearbookUser` who created the content', on_delete=django.db.models.deletion.CASCADE, related_name='created_contents', to=settings.AUTH_USER_MODEL)),
+                ('user', models.ForeignKey(help_text='Foreign Key to the `YearbookGamingUser` who created the content', on_delete=django.db.models.deletion.CASCADE, related_name='created_contents', to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'ordering': ('-updated_on', '-created_on'),

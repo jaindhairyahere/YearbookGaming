@@ -86,8 +86,8 @@ WSGI_APPLICATION = 'SocialService.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'Yearbook_social',
-        'USER': 'Yearbookadmin',
+        'NAME': 'YearbookGaming_social',
+        'USER': 'YearbookGamingadmin',
         'PASSWORD': 'admin1234',
         'HOST': 'db',
         'PORT': 5432,
@@ -143,7 +143,7 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'app_admin.YearbookUser'
+AUTH_USER_MODEL = 'app_admin.YearbookGamingUser'
 
 
 # Custom Authentication Backends
@@ -158,7 +158,7 @@ DELETED_REF_USER_ID = 0
 
 AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")  # s3_media_user
 AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")  # s3_media_user
-BUCKET_NAME = os.environ.get("s3_bucket_NAME") #'Yearbook_dev'
+BUCKET_NAME = os.environ.get("s3_bucket_NAME") #'YearbookGaming_dev'
 PRESIGNED_EXPIRATION_TIME = os.environ.get("PRESIGNED_URL_EXPIRES_IN")
 
 PAGE_SIZE = 5
@@ -176,7 +176,7 @@ QUEUE_BROKER = os.environ.get("MESSAGE_QUEUE_BROKER", DEFAULT_QUEUE_BROKER)
 QUEUE_SCHEME = os.environ.get("MESSAGE_QUEUE_SCHEME", DEFAULT_QUEUE_SCHEME)
 QUEUE_HOST = os.environ.get("MESSAGE_QUEUE_HOST")
 QUEUE_PORT = os.environ.get(f"{QUEUE_BROKER}_PORT") # 5672
-QUEUE_USER = os.environ.get(f"{QUEUE_BROKER}_USER") # "Yearbookadmin"
+QUEUE_USER = os.environ.get(f"{QUEUE_BROKER}_USER") # "YearbookGamingadmin"
 QUEUE_PASSWORD = os.environ.get(f"{QUEUE_BROKER}_PASSWORD") # "admin1234"
 
 MESSAGE_QUEUE_URL = f"{QUEUE_SCHEME}://{QUEUE_USER}:{QUEUE_PASSWORD}@{QUEUE_HOST}:{QUEUE_PORT}"

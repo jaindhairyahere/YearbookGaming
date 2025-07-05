@@ -29,7 +29,7 @@ class SocialService:
         headers = {
             'Content-Type': 'application/json',
             'Cookie': 'csrftoken=zqEQKH9ODuW04Z3Qn54rPw9R8XaRTaQ9NnioqmEdoqaxiV4T781ommWqji3QQLGF',
-            'HTTP_HOST': 'Yearbook_social_django'
+            'HTTP_HOST': 'YearbookGaming_social_django'
         }
 
         response = requests.request("GET", url, headers=headers, data=payload)

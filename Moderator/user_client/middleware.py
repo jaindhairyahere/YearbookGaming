@@ -1,4 +1,4 @@
-from user_client.models import YearbookModerator
+from user_client.models import YearbookGamingModerator
 from user_client.signals import user_is_active
 
 class UserLoginEventMiddleware:

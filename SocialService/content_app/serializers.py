@@ -1,7 +1,7 @@
 from utils.serializers import RemoveDeletedModelSerializer
 
 from content_app.models import Content, UploadObject
-from app_admin.serializers import YearbookUserSerializer
+from app_admin.serializers import YearbookGamingUserSerializer
 from utils.functions import create_presigned_url_download, create_presigned_url_upload
 
 class MediaSerializer(RemoveDeletedModelSerializer):

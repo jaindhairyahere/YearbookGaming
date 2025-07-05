@@ -19,7 +19,7 @@ class Channel(TimeStampedModel):
     name = models.CharField(max_length=1000, unique=True)
     is_under_moderation = models.BooleanField(default=True)
     nickname = models.CharField(default="a new channel for chat", null=True, blank=False, max_length=100)
-    admins = models.ManyToManyField("app_admin.YearbookUser")
+    admins = models.ManyToManyField("app_admin.YearbookGamingUser")
     
     def __str__(self):
         """String Representation of a Channel Object
@@ -31,13 +31,13 @@ class Channel(TimeStampedModel):
     
 class Subscription(TimeStampedModel):
     channel = models.ForeignKey(Channel, on_delete=models.CASCADE, related_name="subscriptions")
-    user = models.ForeignKey("app_admin.YearbookUser", on_delete=models.CASCADE, related_name="subscriptions")
+    user = models.ForeignKey("app_admin.YearbookGamingUser", on_delete=models.CASCADE, related_name="subscriptions")
     
 
 class GameRequest(TimeStampedModel):
     is_accepted = models.BooleanField(default=False)
-    sender = models.ForeignKey("app_admin.YearbookUser", on_delete=models.CASCADE, related_name="requests_sent")
-    receiver = models.ForeignKey("app_admin.YearbookUser", on_delete=models.CASCADE, related_name="requests_received")
+    sender = models.ForeignKey("app_admin.YearbookGamingUser", on_delete=models.CASCADE, related_name="requests_sent")
+    receiver = models.ForeignKey("app_admin.YearbookGamingUser", on_delete=models.CASCADE, related_name="requests_received")
     type = models.IntegerField(choices=RequestTypeChoices.choices, default=RequestTypeChoices.FRIEND_REQUEST)
     channel = models.ForeignKey(Channel, on_delete=models.SET_NULL, null=True) # TODO - Remove this null=True
 

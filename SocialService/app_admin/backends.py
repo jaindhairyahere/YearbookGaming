@@ -3,13 +3,13 @@ from django.contrib.auth.backends import ModelBackend
 from django.conf import settings
 
 # Project Imports
-from app_admin.models import YearbookPlayer, YearbookUser, Role, Group, Policy
+from app_admin.models import YearbookGamingPlayer, YearbookGamingUser, Role, Group, Policy
 from utils.dummy import get_dummy_data
 from utils.functions import convert_perm_avcd_to_crud
 
 
 class AuthenticationBackend(ModelBackend):
-    """Custom authentication backend that supports authenticate method for YearbookUser
+    """Custom authentication backend that supports authenticate method for YearbookGamingUser
     which is not a password based login, but a auth-token based login. This class will
     serve as the authentication backend for entire project
 
@@ -19,7 +19,7 @@ class AuthenticationBackend(ModelBackend):
             Recieves a JSON response from the auth service. 
             Response = {
                 "success": True/False, # If true
-                "Yearbook_id": <int: id>,
+                "YearbookGaming_id": <int: id>,
                 "role_id": <int: role>
                 "group_name": <str: group_name>
             }
@@ -46,7 +46,7 @@ class AuthenticationBackend(ModelBackend):
             token (str, optional): Auth token sent by the client
 
         Returns:
-            YearbookUser (or None): The logged in user if success, otherwise None 
+            YearbookGamingUser (or None): The logged in user if success, otherwise None 
         """
         chat_policy = request.data.get('chat_policy', 1)
         friend_policy = request.data.get('friend_policy', 1)
@@ -65,22 +65,22 @@ class AuthenticationBackend(ModelBackend):
                 if role is None:
                     role, _ = Role.objects.get_or_create(role_id=role_id, group = group)
                 
-                # Get the Yearbook_id from the response
-                Yearbook_id = response.get('Yearbook_id')
+                # Get the YearbookGaming_id from the response
+                YearbookGaming_id = response.get('YearbookGaming_id')
                 
-                # If Yearbook_id passed in kwargs, check if it is same as what recieved from auth service #TODO - Depricate this
-                if kwargs.get('Yearbook_id', None) is not None:
-                    assert(Yearbook_id == kwargs.get('Yearbook_id'))
+                # If YearbookGaming_id passed in kwargs, check if it is same as what recieved from auth service #TODO - Depricate this
+                if kwargs.get('YearbookGaming_id', None) is not None:
+                    assert(YearbookGaming_id == kwargs.get('YearbookGaming_id'))
                 
                # Get/Create the base user. So what is happening here is that We are assuming that only
-                # the `Yearbook_id` of any user is fixed, and always unique. Hence, we should identify a user 
-                # only using the `Yearbook_id` and not using anything else. As of now `username` is also unique
+                # the `YearbookGaming_id` of any user is fixed, and always unique. Hence, we should identify a user 
+                # only using the `YearbookGaming_id` and not using anything else. As of now `username` is also unique
                 # but a chance that we allow the user to change its username should be supported
-                # Get the user with the returned `Yearbook_id`
-                base_user = YearbookUser.objects.filter(Yearbook_id=Yearbook_id).first()
+                # Get the user with the returned `YearbookGaming_id`
+                base_user = YearbookGamingUser.objects.filter(YearbookGaming_id=YearbookGaming_id).first()
                 # Create the user (temporary) if doesn't exist
                 if base_user is None:
-                    base_user = YearbookUser(Yearbook_id=Yearbook_id)
+                    base_user = YearbookGamingUser(YearbookGaming_id=YearbookGaming_id)
                 # Update the username, email, role of the user
                 base_user.username = response.get('username')
                 base_user.email = response.get('email')
@@ -94,7 +94,7 @@ class AuthenticationBackend(ModelBackend):
                     policy = Policy.objects.create(chat_policy=chat_policy, friend_policy=friend_policy)
 
                 # Get the relevant user type model on basis of role_id and get/create a client_user
-                client_user, _ = YearbookPlayer.objects.get_or_create(user=base_user, policy=policy)
+                client_user, _ = YearbookGamingPlayer.objects.get_or_create(user=base_user, policy=policy)
                 
                 # Login Success: If base_user and client_user are not none and base_user is allowed to be active
                 if base_user and client_user and self.user_can_authenticate(base_user):
@@ -107,7 +107,7 @@ class AuthenticationBackend(ModelBackend):
         """Checks if the user `user_obj` has the permission `perm`
 
         Args:
-            user_obj (YearbookUser): The user object 
+            user_obj (YearbookGamingUser): The user object 
             perm (str or Permission): The permission to be checked, as a string or as an Permission object
             obj (_type_, optional): _description_. Defaults to None.
 

@@ -6,7 +6,7 @@ def rebalance(*args, **kwargs):
     """Simple round robin / random allocation algo <=> Policy Less Distribution
     """
     # Step 1: Get all the available users, sort by their response time
-    available_moderators = YearbookModerator.objects.filter(is_mod_available=True).order_by('average_response_time')
+    available_moderators = YearbookGamingModerator.objects.filter(is_mod_available=True).order_by('average_response_time')
     if not available_moderators.exists():
         print("No One is Online")
         # Some action when no one is online
@@ -58,7 +58,7 @@ def rebalance(*args, **kwargs):
                     new_ticket.is_expired = False
                     new_ticket.save()
             else:
-                moderator = YearbookModerator.get_moderator()
+                moderator = YearbookGamingModerator.get_moderator()
                 tickets[ti].moderator = moderator
                 tickets[ti].save()
          
@@ -80,7 +80,7 @@ def rebalance(*args, **kwargs):
                         new_ticket.is_expired = False
                         new_ticket.save()
                 else:                    
-                    moderator = YearbookModerator.get_moderator()
+                    moderator = YearbookGamingModerator.get_moderator()
                     tickets[ti].moderator = moderator
                     tickets[ti].save()
             start += K
@@ -97,14 +97,14 @@ def rebalance(*args, **kwargs):
                     new_ticket.is_expired = False
                     new_ticket.save()
             else: 
-                moderator = YearbookModerator.get_moderator()
+                moderator = YearbookGamingModerator.get_moderator()
                 tickets[ti].moderator = moderator
                 tickets[ti].save()
     return Response(data={"status": "Success", "message": "Rebalancing Done"})
 
 
 ########################## Incoming Request Middleware from app_admin.middleware.py #######################3
-from app_admin.models import YearbookModerator
+from app_admin.models import YearbookGamingModerator
 
 class UserLoginEventMiddleware:
     """Middleware class which marks a user logged-in whenever there is a
@@ -123,7 +123,7 @@ class UserLoginEventMiddleware:
         #     is_moderator = request.user.role.role_id != 3
         #     if is_moderator:            
         #         # Set the moderator to be active. Fires `user_is_active` signal
-        #         YearbookModerator.set_active(user_id=request.user.id)
+        #         YearbookGamingModerator.set_active(user_id=request.user.id)
         
         response = self.get_response(request)
 

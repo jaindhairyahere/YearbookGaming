@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AlterField(
-            model_name='Yearbookmoderator',
+            model_name='YearbookGamingmoderator',
             name='last_logout',
             field=models.DateTimeField(default=datetime.datetime(2022, 6, 4, 12, 37, 28, 579713, tzinfo=utc), help_text='Last logout date-time of the moderator'),
         ),

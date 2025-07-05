@@ -3,7 +3,7 @@ from django.contrib.contenttypes.models import  ContentType
 from rest_framework import serializers
 
 # Project imports
-from app_admin.models import Group, YearbookUser, Permission, Role
+from app_admin.models import Group, YearbookGamingUser, Permission, Role
 from utils.serializers import (
     RemoveDeletedModelSerializer, PermissionModelSerializer, 
     SerializerMethodField
@@ -48,14 +48,14 @@ class RoleSerializer(RemoveDeletedModelSerializer):
         fields = ("group",) 
         
         
-class YearbookUserSerializer(RemoveDeletedModelSerializer):
-    """Model Serializer for the django model `YearbookUser`."""
+class YearbookGamingUserSerializer(RemoveDeletedModelSerializer):
+    """Model Serializer for the django model `YearbookGamingUser`."""
     role = RoleSerializer()
     moderator_id = SerializerMethodField()
     
     def get_moderator_id(self, user, **kwargs):
         return user.moderator.id
     class Meta:
-        model = YearbookUser
+        model = YearbookGamingUser
         exclude = ("id", "is_superuser", "is_active", "is_staff", "groups", "user_permissions")
         depth = 3

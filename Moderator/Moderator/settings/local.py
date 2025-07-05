@@ -70,15 +70,15 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # uploading files to s3    bucket_name = "websitestaticfile"
 AWS_STORAGE_BUCKET_NAME_STATIC = env("DJANGO_AWS_STORAGE_BUCKET_NAME_STATIC", default="websitestaticfile")
 AWS_STORAGE_BUCKET_NAME_USER_FEED = env("DJANGO_AWS_STORAGE_BUCKET_NAME_USERFEED", default="userfeedmedia")
-STATIC_URL = "https://websitestaticfile.s3.amazonaws.com/Yearbook_admin/"
-# STATICFILES_STORAGE = "Yearbook_app.utils.storages.StaticRootS3Boto3Storage"
+STATIC_URL = "https://websitestaticfile.s3.amazonaws.com/YearbookGaming_admin/"
+# STATICFILES_STORAGE = "YearbookGaming_app.utils.storages.StaticRootS3Boto3Storage"
 
 PRESIGNED_EXPIRATION_TIME = 600
 AWS_PRELOAD_METADATA = True
 AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
 AWS_S3_VERIFY = True
-# DEFAULT_FILE_STORAGE = "Yearbook_app.utils.storages.MediaRootS3Boto3Storage"
+# DEFAULT_FILE_STORAGE = "YearbookGaming_app.utils.storages.MediaRootS3Boto3Storage"
 AWS_S3_OBJECT_PARAMETERS = {
     "CacheControl": "max-age=86400",
 }

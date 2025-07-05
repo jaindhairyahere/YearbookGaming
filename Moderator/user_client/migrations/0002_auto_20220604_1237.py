@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.AlterField(
-            model_name='Yearbookmoderator',
+            model_name='YearbookGamingmoderator',
             name='last_logout',
             field=models.DateTimeField(default=datetime.datetime(2022, 6, 4, 12, 37, 23, 590343, tzinfo=utc), help_text='Last logout date-time of the moderator'),
         ),
@@ -30,7 +30,7 @@ class Migration(migrations.Migration):
                 ('escalated', models.IntegerField(default=0)),
                 ('rejected', models.IntegerField(default=0)),
                 ('accepted', models.IntegerField(default=0)),
-                ('user', models.OneToOneField(help_text='Foreign key to `YearbookUser` used to authenticate this moderator', on_delete=django.db.models.deletion.CASCADE, related_name='board', to=settings.AUTH_USER_MODEL)),
+                ('user', models.OneToOneField(help_text='Foreign key to `YearbookGamingUser` used to authenticate this moderator', on_delete=django.db.models.deletion.CASCADE, related_name='board', to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'ordering': ('-updated_on', '-created_on'),

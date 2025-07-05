@@ -55,8 +55,8 @@ class AppAdminViewsTest(URLPatternsTestCase):
         self.assertEqual(login_resp.status_code, HTTP_200_OK)
         self.assertEqual(login_resp.data["status"], "success")
         # Validate if the object in the response already exists
-        id = login_resp.data["data"].get("Yearbook_id")
-        self.assertTrue(YearbookUser.objects.filter(Yearbook_id=id).exists())
+        id = login_resp.data["data"].get("YearbookGaming_id")
+        self.assertTrue(YearbookGamingUser.objects.filter(YearbookGaming_id=id).exists())
         return login_resp
     
     def test__get_auth_details_authorized(self):
@@ -73,11 +73,11 @@ class AppAdminViewsTest(URLPatternsTestCase):
         self.assertEqual(resp.status_code, HTTP_401_UNAUTHORIZED)
         self.assertEqual(resp.data["status"], "failure")
         login_resp = self.login({"token":"token_by_simple_moderator"})
-        id = login_resp.data["data"].get("Yearbook_id")
-        user_pre = YearbookUser.objects.get(Yearbook_id=id)
+        id = login_resp.data["data"].get("YearbookGaming_id")
+        user_pre = YearbookGamingUser.objects.get(YearbookGaming_id=id)
         self.assertTrue(user_pre.is_active)
         resp = self.client.delete(self.login_url)
-        user_post = YearbookUser.objects.get(Yearbook_id=id)
+        user_post = YearbookGamingUser.objects.get(YearbookGaming_id=id)
         self.assertEqual(resp.status_code, HTTP_200_OK)
         self.assertEqual(resp.data["status"], "success")
         self.assertFalse(user_post.is_active)
@@ -97,12 +97,12 @@ class AppAdminViewsTest(URLPatternsTestCase):
             login2.data["message"], 
             "A user is already logged in. Logout first or add force==True in request body")
         self.assertEqual(
-            login1.data["data"].get("Yearbook_id"), login2.data["data"].get("Yearbook_id")
+            login1.data["data"].get("YearbookGaming_id"), login2.data["data"].get("YearbookGaming_id")
         )
         login2 = self.login({"token":"token_by_admin_moderator", "force": True})
         # self.assertEqual(login2.data.get("message"), "User Logged in successfully")
         self.assertNotEqual(
-            login1.data["data"].get("Yearbook_id"), login2.data["data"].get("Yearbook_id")
+            login1.data["data"].get("YearbookGaming_id"), login2.data["data"].get("YearbookGaming_id")
         )
         
     def test__unallowed_requests_login(self):
@@ -141,11 +141,11 @@ class PermissionsTest(URLPatternsTestCase):
         self.assertEqual(login_resp.status_code, HTTP_200_OK)
         self.assertEqual(login_resp.data["status"], "success")
         # Validate if the object in the response already exists
-        id = login_resp.data["data"].get("Yearbook_id")
-        self.assertTrue(YearbookUser.objects.filter(Yearbook_id=id).exists())
+        id = login_resp.data["data"].get("YearbookGaming_id")
+        self.assertTrue(YearbookGamingUser.objects.filter(YearbookGaming_id=id).exists())
         return login_resp
           
-    def populate__YearbookUser(self, objects, offset=3):
+    def populate__YearbookGamingUser(self, objects, offset=3):
         roles = ["simple_moderator", "admin_moderator"]
         role_choices = random.choices(roles, weights=[0.8, 0.2], k=objects)
         for _n in range(offset, objects+offset):
@@ -170,20 +170,20 @@ class PermissionsTest(URLPatternsTestCase):
         self.logged_in = LoggedInPermission()
         self.group = HasGroupPermission()
         self.factory = APIRequestFactory()
-        YearbookUser.objects.all().delete()
-        self.populate(YearbookUser, 5)
+        YearbookGamingUser.objects.all().delete()
+        self.populate(YearbookGamingUser, 5)
         
     def test__LoggedInPermission(self):
         request = self.factory.get(self.login_url)
         request.user = AnonymousUser()
         self.assertFalse(self.logged_in.has_permission(request))
-        request.user = YearbookUser.objects.first()
+        request.user = YearbookGamingUser.objects.first()
         self.assertTrue(self.logged_in.has_permission(request))
         
     def test__HasGroupPermission(self):
         def _get_permission_request(method, path, mod_type, pk=None):
             req = getattr(self.factory, method)(path)
-            req.user = YearbookUser.objects.filter(role__group__name=mod_type).first()
+            req.user = YearbookGamingUser.objects.filter(role__group__name=mod_type).first()
             req.parser_context = {"kwargs":{}}
             if pk is not None:
                 req.parser_context["kwargs"]["pk"] = pk

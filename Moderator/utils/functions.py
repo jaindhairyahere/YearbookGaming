@@ -81,10 +81,10 @@ def get_set_user(request, user):
 
     Args:
         request (HttpRequest): a wsgi request
-        user (YearbookUser): the user to be assigned
+        user (YearbookGamingUser): the user to be assigned
 
     Returns:
-        YearbookUser: the user instance
+        YearbookGamingUser: the user instance
     """
     if not hasattr(request, '_cached_user'):
         request._cached_user = user
@@ -108,7 +108,7 @@ def generate_access_token(user, intent="access"):
     """Generate JWT Access token for the given user and with a given intent
 
     Args:
-        user (YearbookUser): the user object
+        user (YearbookGamingUser): the user object
         intent (str, Optional): Intent of the token. For login, it should be access.
             For logout, it should by anything random (eg - "logout"). Defaults to "access".
 

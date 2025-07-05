@@ -49,7 +49,7 @@ class Content(TimeStampedModel, ModerationBase):
     """Model for storing all types of content
     
     Defined Fields:
-        user: Foreign Key to the `YearbookUser` who created the content
+        user: Foreign Key to the `YearbookGamingUser` who created the content
         content_type: Describes the type of content [Post, Comment, Chat, History]
         text: The text part of the content
         parent: Foreign Key to self (with null=True)
@@ -71,11 +71,11 @@ class Content(TimeStampedModel, ModerationBase):
         is_marked_spam: If the conent is marked spam
     """
     user = models.ForeignKey(
-        "app_admin.YearbookUser",
+        "app_admin.YearbookGamingUser",
         related_name="created_contents",
         on_delete=models.CASCADE,
         help_text=
-        'Foreign Key to the `YearbookUser` who created the content'
+        'Foreign Key to the `YearbookGamingUser` who created the content'
     )
     content_type = models.IntegerField(
         default=ContentTypeChoices.POST, 
@@ -153,7 +153,7 @@ class React(TimeStampedModel):
     """Model for storing all types of reacts
     
     Defined Fields:
-        user: ForeignKey to `app_admin.YearbookUser` who created the reaction 
+        user: ForeignKey to `app_admin.YearbookGamingUser` who created the reaction 
         content: ForeignKey to `content_app.Content` on which the reaction is based
         reaction: The type of Reaction (like, haha, cry, etc...)
     
@@ -161,7 +161,7 @@ class React(TimeStampedModel):
         created_on (TimeStampedModel): Time when an instance is created on the server side
         updated_on (TimeStampedModel): Time when an instance is updated on the server side
     """
-    user = models.ForeignKey("app_admin.YearbookUser", on_delete=models.CASCADE, related_name="reations")
+    user = models.ForeignKey("app_admin.YearbookGamingUser", on_delete=models.CASCADE, related_name="reations")
     content = models.ForeignKey("content_app.Content", on_delete=models.CASCADE, related_name="reactions")
     reaction = models.IntegerField(default=ReactionChoices.LIKE, choices=ReactionChoices.choices)
     

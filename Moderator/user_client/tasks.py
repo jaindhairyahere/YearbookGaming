@@ -8,7 +8,7 @@ import logging
 from queue import Queue
 
 # Project Imports
-from user_client.models import YearbookModerator, ModerationTicket, TicketBoard
+from user_client.models import YearbookGamingModerator, ModerationTicket, TicketBoard
 from utils.consumer import TicketConsumer
 
 # Setup Logging
@@ -37,7 +37,7 @@ def handle_tickets(expire_time=None, moderator=None, tickets=None, complete=True
     Args:
         expire_time (DateTime, Optional): expire date-time will be passed here. Default is the 
                                         current time fetched using `timezone.now()`
-        moderator (YearbookModerator, Optional): the moderator instance. Defaults to None
+        moderator (YearbookGamingModerator, Optional): the moderator instance. Defaults to None
         tickets (QuerySet[ModerationTicket], Optional): tickets to be handled. Defaults to tickets 
             that were assigned to this moderator, that have been pulled but not completed yet
         complete (bool, Optional): Should the tickets be set to completed. Defaults to True.
@@ -152,11 +152,11 @@ def moderator_activity(moderator_id, shared=False, *args, **kwargs):
     when the signal `user_is_active` is emitted
 
     Args:
-        moderator_id (int (YearbookModerator)): ID or PK of a `YearbookModerator` instance
+        moderator_id (int (YearbookGamingModerator)): ID or PK of a `YearbookGamingModerator` instance
         shared (bool, Optional): Should the `model.save()` by run asynchronously with 
                                 respect to the worker. Defaults to False.
     """
-    moderator = YearbookModerator.objects.get(id=moderator_id)
+    moderator = YearbookGamingModerator.objects.get(id=moderator_id)
     if not moderator.is_mod_available:
         moderator.set_active(shared=shared)
 
@@ -168,7 +168,7 @@ def logout_event(moderator_id, expire_tickets=True, shared=False, *args, **kwarg
     the signal `user_logout` is emitted.
 
     Args:
-        moderator_id (int (YearbookModerator)): ID or PK of a `YearbookModerator` instance
+        moderator_id (int (YearbookGamingModerator)): ID or PK of a `YearbookGamingModerator` instance
         expire_tickets (bool, Optional): Does the task also need to expire the tickets, 
                             i.e. complete them and then requeue them. Defaults to True.
         shared (bool, Optional): Should the `model.save()` by run asynchronously with 
@@ -177,7 +177,7 @@ def logout_event(moderator_id, expire_tickets=True, shared=False, *args, **kwarg
     # Get the current time
     current_time = timezone.now()
     # Get the moderator and its board
-    moderator = YearbookModerator.objects.get(id=moderator_id)
+    moderator = YearbookGamingModerator.objects.get(id=moderator_id)
     board = moderator.user.board
     board.total_logged_in_time += (current_time-moderator.last_logout).seconds//60
     board.save()

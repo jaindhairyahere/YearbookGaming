@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from utils.serializers import SerializerMethodField
 from communication_app.models import Channel, Subscription, GameRequest
-from app_admin.serializers import YearbookUserSerializer
+from app_admin.serializers import YearbookGamingUserSerializer
 
 class ChannelSerializer(serializers.ModelSerializer):
     """Serializer Class for Channel Model"""
@@ -11,7 +11,7 @@ class ChannelSerializer(serializers.ModelSerializer):
         
 class SubscriptionSerializer(serializers.ModelSerializer):
     """Serializer Class for Subscription Model"""
-    user = YearbookUserSerializer()
+    user = YearbookGamingUserSerializer()
     channel = ChannelSerializer()
     class Meta:
         model = Subscription
@@ -19,8 +19,8 @@ class SubscriptionSerializer(serializers.ModelSerializer):
         
 
 class GameRequestSerializer(serializers.ModelSerializer):
-    sender = YearbookUserSerializer()
-    receiver = YearbookUserSerializer()
+    sender = YearbookGamingUserSerializer()
+    receiver = YearbookGamingUserSerializer()
     channel = ChannelSerializer()
     class Meta:
         model = GameRequest

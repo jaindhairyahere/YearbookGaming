@@ -6,12 +6,12 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('user_client', '0005_alter_Yearbookmoderator_last_logout'),
+        ('user_client', '0005_alter_YearbookGamingmoderator_last_logout'),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='Yearbookmoderator',
+            model_name='YearbookGamingmoderator',
             name='last_logout',
             field=models.DateTimeField(help_text='Last logout date-time of the moderator'),
         ),

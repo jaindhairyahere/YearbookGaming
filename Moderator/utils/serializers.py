@@ -21,12 +21,12 @@ class SerializerMethodField(SerializerMethodField):
 
         def get_extra_info_personalized(self, instance, **kwargs):
             context = self.context
-            company = context.get("company", "Yearbooktoys")
+            company = context.get("company", "YearbookGamingtoys")
             email = kwargs.get("email", None)
             delimitter = kwargs.get("delimitter", "|")
             return f"{instance.username}{delimitter}{email}@{company}.com"
     
-    serializer = ExampleSerializer(instance, context={"company":"Yearbookinnovations"})
+    serializer = ExampleSerializer(instance, context={"company":"YearbookGaminginnovations"})
     """
     def __init__(self, method_name=None, **kwargs):
         self.func_kwargs = kwargs.pop('func_kwargs', {})

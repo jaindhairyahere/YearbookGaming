@@ -11,23 +11,23 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.RemoveField(
-            model_name='Yearbookmoderator',
+            model_name='YearbookGamingmoderator',
             name='average_response_time',
         ),
         migrations.RemoveField(
-            model_name='Yearbookmoderator',
+            model_name='YearbookGamingmoderator',
             name='posts_abandoned',
         ),
         migrations.RemoveField(
-            model_name='Yearbookmoderator',
+            model_name='YearbookGamingmoderator',
             name='times_abandoned',
         ),
         migrations.RemoveField(
-            model_name='Yearbookmoderator',
+            model_name='YearbookGamingmoderator',
             name='total_logged_in_time',
         ),
         migrations.RemoveField(
-            model_name='Yearbookmoderator',
+            model_name='YearbookGamingmoderator',
             name='user_rating',
         ),
         migrations.AddField(
